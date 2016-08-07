@@ -19,7 +19,7 @@ public abstract class BasicController<M extends Model> implements Initializable 
 	
 	@Nullable
 	private Parent root;
-	private M ourModel;
+	private M ourModel = initModel();
 
 	private void changed(@Nullable ObservableValue<? extends Locale> observable,
 			Locale oldValue, Locale newValue) {
@@ -36,25 +36,21 @@ public abstract class BasicController<M extends Model> implements Initializable 
 	
 	
 	public final M getModel() {
+		assert ourModel != null;
 		return ourModel;
 	}
 	
 	@Override
 	public final void initialize(@Nullable URL location, @Nullable ResourceBundle resources) {
-		ourModel = initModel();
-		if(ourModel != null) {
-			Model.addLocaleListener(this::changed);
-		}
+		Model.addLocaleListener(this::changed);
 		init(initRoot());
 		
 		delegatedInit(location, resources);
 		
-		if(ourModel != null) {
-			if(isToTranslate()) {
-				initLocalization();
-			} else {
-				System.err.println(toString() + " is not to translate? Is this a working matter?");
-			}
+		if(isToTranslate()) {
+			initLocalization();
+		} else {
+			System.err.println(toString() + " is not to translate? Is this a working matter?");
 		}
 	}
 	
