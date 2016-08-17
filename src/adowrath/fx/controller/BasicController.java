@@ -26,9 +26,6 @@ public abstract class BasicController<M extends Model> implements Initializable 
 		ourModel.getLocList().updateList();
 	}
 	
-	private final void init(@Nullable Parent newRoot) {
-		root = newRoot;
-	}
 	protected abstract @Nullable Parent initRoot();
 	protected abstract M initModel();
 	protected abstract void delegatedInit(@Nullable URL location, @Nullable ResourceBundle resources);
@@ -36,14 +33,13 @@ public abstract class BasicController<M extends Model> implements Initializable 
 	
 	
 	public final M getModel() {
-		assert ourModel != null;
 		return ourModel;
 	}
 	
 	@Override
 	public final void initialize(@Nullable URL location, @Nullable ResourceBundle resources) {
 		Model.addLocaleListener(this::changed);
-		init(initRoot());
+		root = initRoot();
 		
 		delegatedInit(location, resources);
 		

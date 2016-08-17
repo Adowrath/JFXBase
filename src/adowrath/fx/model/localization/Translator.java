@@ -29,8 +29,8 @@ import javafx.beans.value.ObservableValue;
 @NonNullByDefault
 public final class Translator {
 	
-	private static Map<String, String> transMap = new HashMap<String, String>();
-	private static Map<String, String> fallBack = new HashMap<String, String>();
+	private static Map<String, String> transMap = new HashMap<>();
+	private static Map<String, String> fallBack = new HashMap<>();
 	private static Locale currentLocale = Model.getLocale();
 	@Nullable
 	public static String project = null;

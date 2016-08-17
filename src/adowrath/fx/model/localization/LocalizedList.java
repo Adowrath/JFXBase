@@ -61,7 +61,7 @@ public class LocalizedList {
 		}
 	}
 	
-	private void setText(Styleable s, String st) {
+	private static void setText(Styleable s, String st) {
 		try {
 			s.getClass().getMethod("setText", String.class).invoke(s, translate(st));
 		} catch(IllegalAccessException | IllegalArgumentException
@@ -73,7 +73,7 @@ public class LocalizedList {
 		}
 	}
 	
-	private @Nullable String getKey(Styleable s) {
+	private static @Nullable String getKey(Styleable s) {
 		String tKey = null;
 		for(String st : s.getStyleClass()) {
 			if(st.startsWith("_tl_")) {
